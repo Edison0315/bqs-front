@@ -1,0 +1,124 @@
+<div class="flex flex-col flex-auto overflow-y-auto p-6">
+
+    <div class="flex items-center justify-between mb-6">
+        <div class="text-2xl font-semibold">{{ title() }}</div>
+        <button mat-icon-button (click)="cancel()" matTooltip="Cerrar">
+            <mat-icon svgIcon="heroicons_outline:x-mark"></mat-icon>
+        </button>
+    </div>
+
+    <ng-container *ngIf="service.error() as err">
+        <div class="mb-4 p-3 rounded bg-red-100 text-red-800 text-sm">{{ err }}</div>
+    </ng-container>
+
+    <form [formGroup]="form" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+        <mat-form-field class="col-span-1 md:col-span-2">
+            <mat-label>Nombre completo</mat-label>
+            <input matInput formControlName="full_name">
+            <mat-error *ngIf="form.get('full_name')?.hasError('required')">Requerido.</mat-error>
+            <mat-error *ngIf="form.get('full_name')?.hasError('minlength')">Mínimo 2 caracteres.</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="email">
+            <mat-error *ngIf="form.get('email')?.hasError('required')">Requerido.</mat-error>
+            <mat-error *ngIf="form.get('email')?.hasError('email')">Email no válido.</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Teléfono</mat-label>
+            <input matInput formControlName="phone_number">
+            <mat-error *ngIf="form.get('phone_number')?.hasError('required')">Requerido.</mat-error>
+            <mat-error *ngIf="form.get('phone_number')?.hasError('minlength')">Mínimo 4 caracteres.</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Documento</mat-label>
+            <input matInput formControlName="document">
+            <mat-error *ngIf="form.get('document')?.hasError('required')">Requerido.</mat-error>
+            <mat-error *ngIf="form.get('document')?.hasError('minlength')">Mínimo 3 caracteres.</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Fecha de nacimiento</mat-label>
+            <input matInput [matDatepicker]="dobPicker" [max]="today" formControlName="date_of_birth">
+            <mat-datepicker-toggle matIconSuffix [for]="dobPicker"></mat-datepicker-toggle>
+            <mat-datepicker #dobPicker></mat-datepicker>
+            <mat-error *ngIf="form.get('date_of_birth')?.hasError('required')">Requerido.</mat-error>
+            <mat-error *ngIf="form.get('date_of_birth')?.hasError('maxToday')">No puede ser futura.</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Fecha de contratación</mat-label>
+            <input matInput [matDatepicker]="hirePicker" [max]="today" formControlName="hire_date">
+            <mat-datepicker-toggle matIconSuffix [for]="hirePicker"></mat-datepicker-toggle>
+            <mat-datepicker #hirePicker></mat-datepicker>
+            <mat-error *ngIf="form.get('hire_date')?.hasError('required')">Requerido.</mat-error>
+            <mat-error *ngIf="form.get('hire_date')?.hasError('maxToday')">No puede ser futura.</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Habilidades</mat-label>
+            <mat-select formControlName="skills" multiple>
+                <mat-option *ngFor="let s of skillOptions" [value]="s">
+                    {{ skillLabels[s] }}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('skills')?.hasError('required') || form.get('skills')?.hasError('minArrayLength')">
+                Selecciona al menos una.
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Idiomas</mat-label>
+            <mat-select formControlName="languages" multiple>
+                <mat-option *ngFor="let l of languageOptions" [value]="l">
+                    {{ languageLabels[l] }}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('languages')?.hasError('required') || form.get('languages')?.hasError('minArrayLength')">
+                Selecciona al menos uno.
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Estado</mat-label>
+            <mat-select formControlName="status">
+                <mat-option *ngFor="let s of statusOptions" [value]="s">
+                    {{ statusLabels[s] }}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('status')?.hasError('required')">Requerido.</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Tarifa por hora</mat-label>
+            <input matInput type="number" min="0" step="0.01" formControlName="hourly_rate">
+            <mat-error *ngIf="form.get('hourly_rate')?.hasError('required')">Requerido.</mat-error>
+            <mat-error *ngIf="form.get('hourly_rate')?.hasError('min')">Debe ser mayor que 0.</mat-error>
+        </mat-form-field>
+    </form>
+
+    <div class="flex items-center justify-between mt-8">
+        <button
+            *ngIf="!isCreateMode()"
+            mat-stroked-button
+            color="warn"
+            (click)="remove()"
+            [disabled]="service.loading()">
+            <mat-icon svgIcon="heroicons_outline:trash"></mat-icon>
+            <span class="ml-2">Eliminar</span>
+        </button>
+        <div class="ml-auto flex gap-2">
+            <button mat-stroked-button (click)="cancel()" [disabled]="service.loading()">
+                Cancelar
+            </button>
+            <button mat-flat-button color="primary" (click)="save()" [disabled]="service.loading()">
+                <mat-icon svgIcon="heroicons_outline:check"></mat-icon>
+                <span class="ml-2">Guardar</span>
+            </button>
+        </div>
+    </div>
+</div>
