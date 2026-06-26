@@ -92,11 +92,15 @@ export const appConfig: ApplicationConfig = {
                     lg: '1280px',
                     xl: '1440px',
                 },
-                theme: 'theme-default',
+                theme: 'theme-gold',
                 themes: [
                     {
                         id: 'theme-default',
                         name: 'Default',
+                    },
+                    {
+                        id: 'theme-gold',
+                        name: 'Gold',
                     },
                     {
                         id: 'theme-brand',
