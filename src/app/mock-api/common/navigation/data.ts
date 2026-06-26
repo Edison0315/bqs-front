@@ -15,6 +15,13 @@ export const defaultNavigation: FuseNavigationItem[] = [
         type : 'basic',
         icon : 'heroicons_outline:users',
         link : '/employees'
+    },
+    {
+        id   : 'events',
+        title: 'Eventos',
+        type : 'basic',
+        icon : 'heroicons_outline:calendar-days',
+        link : '/events'
     }
 ];
 export const compactNavigation: FuseNavigationItem[] = [
@@ -31,6 +38,13 @@ export const compactNavigation: FuseNavigationItem[] = [
         type : 'basic',
         icon : 'heroicons_outline:users',
         link : '/employees'
+    },
+    {
+        id   : 'events',
+        title: 'Eventos',
+        type : 'basic',
+        icon : 'heroicons_outline:calendar-days',
+        link : '/events'
     }
 ];
 export const futuristicNavigation: FuseNavigationItem[] = [
@@ -47,6 +61,13 @@ export const futuristicNavigation: FuseNavigationItem[] = [
         type : 'basic',
         icon : 'heroicons_outline:users',
         link : '/employees'
+    },
+    {
+        id   : 'events',
+        title: 'Eventos',
+        type : 'basic',
+        icon : 'heroicons_outline:calendar-days',
+        link : '/events'
     }
 ];
 export const horizontalNavigation: FuseNavigationItem[] = [
@@ -63,5 +84,12 @@ export const horizontalNavigation: FuseNavigationItem[] = [
         type : 'basic',
         icon : 'heroicons_outline:users',
         link : '/employees'
+    },
+    {
+        id   : 'events',
+        title: 'Eventos',
+        type : 'basic',
+        icon : 'heroicons_outline:calendar-days',
+        link : '/events'
     }
 ];
