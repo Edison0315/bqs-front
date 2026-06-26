@@ -13,6 +13,8 @@ const generatePalette = require(
  */
 const customPalettes = {
     brand: generatePalette('#2196F3'),
+    gold: generatePalette('#B89B5E'),
+    beige: generatePalette('#D8C7A5'),
 };
 
 /**
@@ -60,6 +62,10 @@ const themes = {
     amber: {
         primary: colors.amber,
     },
+    gold: {
+        primary: customPalettes.gold,
+        accent: customPalettes.beige,
+    },
 };
 
 /**
@@ -99,12 +105,19 @@ const config = {
             },
             colors: {
                 gray: colors.slate,
+                'elegant-black': '#111111',
+                'dark-gray': '#2C2C2C',
+                'soft-gray': '#F5F5F3',
+                'soft-gold': '#B89B5E',
+                'warm-beige': '#D8C7A5',
             },
             flex: {
                 0: '0 0 auto',
             },
             fontFamily: {
-                sans: `"Inter var", ${defaultTheme.fontFamily.sans.join(',')}`,
+                sans: `"Montserrat", ${defaultTheme.fontFamily.sans.join(',')}`,
+                heading: `"Playfair Display", ${defaultTheme.fontFamily.serif.join(',')}`,
+                poppins: `"Poppins", ${defaultTheme.fontFamily.sans.join(',')}`,
                 mono: `"IBM Plex Mono", ${defaultTheme.fontFamily.mono.join(',')}`,
             },
             opacity: {
